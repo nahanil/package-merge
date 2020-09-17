@@ -1,0 +1,16 @@
+{
+  "name": "@nahanil/package-merge",
+  "version": "1.0.0",
+  "description": "cli tool to merge package.json files",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jarrod Linahan <jarrod@linahan.id.au>",
+  "license": "MIT",
+  "dependencies": {
+    "package-merge": "^0.1.2"
+  },
+  "bin": {
+    "package-merge": "./cli.js"
+  }
+}
