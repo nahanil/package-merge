@@ -6,6 +6,17 @@ const Merge = require('package-merge')
 
 const read = (fn) => fs.readFileSync(fn)
 const write = (fn, data) => fs.writeFileSync(fn, data)
+const ask = (question) => new Promise((resolve) => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  })
+
+  rl.question(question, (ans) => {
+    rl.close()
+    resolve(ans)
+  })
+})
 
 const [,, ...args] = process.argv
 
@@ -14,26 +25,15 @@ if (args.length < 2) {
   process.exit(1)
 }
 
-if (fs.existsSync('package.json')) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  })
-
-  rl.question("package.json already exists! Do you really wanna blow it the crap away? [Y/n]\n", (ans) => {
-    if (!ans || ans.match(/^y/i)) {
-      go()
-    } else {
+async function go () {
+  if (fs.existsSync('package.json')) {
+    const res = await ask("package.json already exists - Continue? [Y/n]: ");
+    if (res && !res.match(/^y/i)) {
       console.log('Phew, ok I give up')
       process.exit(0)
     }
-    rl.close()
-  })
-} else {
-  go()
-}
+  }
 
-function go () {
   const out = args.reduceRight((acc, fn) => {
     if (!acc) {
       return read(fn)
@@ -45,3 +45,5 @@ function go () {
   write('package.json', out)
   console.log('package.json updated')
 }
+
+go()
