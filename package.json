@@ -1,16 +1,25 @@
 {
   "name": "@nahanil/package-merge",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "cli tool to merge package.json files",
+  "main": "lib/merge.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/_mocha -R spec test/spec",
+    "lint": "standard"
   },
   "author": "Jarrod Linahan <jarrod@linahan.id.au>",
   "license": "MIT",
   "dependencies": {
-    "package-merge": "^0.1.2"
+    "jju": "^1.4.0",
+    "semver": "^7.3.2",
+    "semver-set": "^0.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3",
+    "standard": "^14.3.4"
   },
   "bin": {
-    "package-merge": "./cli.js"
+    "package-merge": "./bin/cli.js"
   }
 }
