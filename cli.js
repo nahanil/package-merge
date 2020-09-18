@@ -19,6 +19,12 @@ const ask = (question) => new Promise((resolve) => {
 })
 
 const [,, ...args] = process.argv
+let FORCE_GOGO = false
+
+if (args.length && args.length > 1 && args[0] === '-y') {
+  args.shift()
+  FORCE_GOGO = true
+}
 
 if (args.length < 2) {
   console.warn(`You're trying to merge less than 2 files.. In what universe does that make sense, friend?`)
@@ -26,7 +32,7 @@ if (args.length < 2) {
 }
 
 async function go () {
-  if (fs.existsSync('package.json')) {
+  if (!FORCE_GOGO && fs.existsSync('package.json')) {
     const res = await ask("package.json already exists - Continue? [Y/n]: ");
     if (res && !res.match(/^y/i)) {
       console.log('Phew, ok I give up')

@@ -1,6 +1,6 @@
 {
   "name": "@nahanil/package-merge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "cli tool to merge package.json files",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
